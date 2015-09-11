@@ -39,8 +39,12 @@ obexd_builtin_sources += obexd/plugins/irmc.c
 obexd_builtin_modules += pbap
 obexd_builtin_sources += obexd/plugins/pbap.c \
 				obexd/plugins/vcard.h obexd/plugins/vcard.c \
-				obexd/plugins/phonebook.h \
-				obexd/plugins/phonebook-dummy.c
+				obexd/plugins/phonebook.h
+if PHONEBOOK_EBOOK
+obexd_builtin_sources += obexd/plugins/phonebook-ebook.c
+else
+obexd_builtin_sources += obexd/plugins/phonebook-dummy.c
+endif
 endif
 
 obexd_builtin_modules += mas
@@ -81,14 +85,15 @@ obexd_src_obexd_SOURCES = $(btio_sources) $(gobex_sources) \
 			obexd/src/map_ap.h
 obexd_src_obexd_LDADD = lib/libbluetooth-internal.la \
 			gdbus/libgdbus-internal.la \
-			@ICAL_LIBS@ @DBUS_LIBS@ @GLIB_LIBS@ -ldl
+			@ICAL_LIBS@ @EBOOK_LIBS@ @DBUS_LIBS@ @GLIB_LIBS@ -ldl
 
 obexd_src_obexd_LDFLAGS = -Wl,--export-dynamic
 
 obexd_src_obexd_CFLAGS = $(AM_CFLAGS) @GLIB_CFLAGS@ @DBUS_CFLAGS@ \
-				@ICAL_CFLAGS@ -DOBEX_PLUGIN_BUILTIN \
+				@ICAL_CFLAGS@ @EBOOK_CFLAGS@ -DOBEX_PLUGIN_BUILTIN \
 				-DPLUGINDIR=\""$(obex_plugindir)"\" \
-				-fPIC -D_FILE_OFFSET_BITS=64
+				-fPIC -D_FILE_OFFSET_BITS=64 \
+				-DEBOOK_API=@EBOOK_API@
 
 obexd_src_obexd_CPPFLAGS = -I$(builddir)/lib -I$(builddir)/obexd/src
 
