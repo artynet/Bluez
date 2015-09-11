@@ -180,6 +180,11 @@ AC_ARG_ENABLE(cups, AC_HELP_STRING([--disable-cups],
                 [disable CUPS printer support]), [enable_cups=${enableval}])
 AM_CONDITIONAL(CUPS, test "${enable_cups}" != "no")
 
+AC_ARG_ENABLE(phonebook-ebook, AC_HELP_STRING([--enable-phonebook-ebook],
+		[disable Phonebook support through EDS]),
+		[enable_phonebook_ebook=${enableval}])
+AM_CONDITIONAL(PHONEBOOK_EBOOK, test "${enable_phonebook_ebook}" = "yes")
+
 AC_ARG_ENABLE(obex, AC_HELP_STRING([--disable-obex],
 		[disable OBEX profile support]), [enable_obex=${enableval}])
 if (test "${enable_obex}" != "no"); then
@@ -187,6 +192,19 @@ if (test "${enable_obex}" != "no"); then
 					AC_MSG_ERROR(libical is required))
 	AC_SUBST(ICAL_CFLAGS)
 	AC_SUBST(ICAL_LIBS)
+
+	if (test "${enable_phonebook_ebook}" = "yes"); then
+		PKG_CHECK_MODULES(EBOOK, libebook-1.2 >= 3.12,
+			ebook_api="12",
+			AC_MSG_ERROR(libebook-1.2-12 or greater is required))
+
+		PKG_CHECK_MODULES(EBOOK16, libebook-1.2 >= 3.16,
+			ebook_api="16", dummy=yes)
+
+		AC_SUBST(EBOOK_API, "${ebook_api}")
+		AC_SUBST(EBOOK_CFLAGS)
+		AC_SUBST(EBOOK_LIBS)
+	fi
 fi
 AM_CONDITIONAL(OBEX, test "${enable_obex}" != "no")
 

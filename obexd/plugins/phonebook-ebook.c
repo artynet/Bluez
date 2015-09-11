@@ -380,7 +380,11 @@ static GSList *traverse_sources(GSList *ebooks, ESource *source)
 {
 	GError *gerr = NULL;
 
+#if EBOOK_API >= 16
 	EClient *client = e_book_client_connect_sync(source, -1, NULL, &gerr);
+#else
+	EClient *client = e_book_client_connect_sync(source, NULL, &gerr);
+#endif
 	if (client == NULL) {
 		error("Can't create user's address book: %s",
 							gerr->message);
