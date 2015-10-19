@@ -65,6 +65,7 @@ static GSList *transports = NULL;
 
 static gboolean option_version = FALSE;
 static gboolean option_export = FALSE;
+static char *option_service = NULL;
 
 struct tracklist {
 	GDBusProxy *proxy;
@@ -595,7 +596,7 @@ static gboolean name_owner_changed(DBusConnection *conn,
 		return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 	}
 
-	if (!g_str_has_prefix(name, "org.mpris"))
+	if (!g_str_has_prefix(name, option_service))
 		return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
 	if (*new == '\0') {
@@ -677,7 +678,7 @@ static void parse_list_names(DBusConnection *conn, DBusMessageIter *args)
 
 		dbus_message_iter_get_basic(&array, &name);
 
-		if (!g_str_has_prefix(name, "org.mpris"))
+		if (!g_str_has_prefix(name, option_service))
 			goto next;
 
 		owner = get_name_owner(conn, name);
@@ -740,6 +741,8 @@ static void usage(void)
 }
 
 static GOptionEntry options[] = {
+	{ "service", 's', 0, G_OPTION_ARG_STRING, &option_service,
+				"Specifiy the mpris service name. Defaults to 'org.mpris'" },
 	{ "version", 'v', 0, G_OPTION_ARG_NONE, &option_version,
 				"Show version information and exit" },
 	{ "export", 'e', 0, G_OPTION_ARG_NONE, &option_export,
@@ -2532,6 +2535,9 @@ int main(int argc, char *argv[])
 		usage();
 		exit(0);
 	}
+
+	if (!option_service)
+		option_service = "org.mpris";
 
 	main_loop = g_main_loop_new(NULL, FALSE);
 
