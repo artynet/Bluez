@@ -1,6 +1,4 @@
-#!/usr/bin/python
-
-from __future__ import absolute_import, print_function, unicode_literals
+#!/usr/bin/python3
 
 '''
 Thermometer test script
@@ -40,7 +38,7 @@ class Watcher(dbus.service.Object):
 def properties_changed(interface, changed, invalidated):
 	if interface != THERMOMETER_INTERFACE:
 		return
-	for name, value in changed.iteritems():
+	for name, value in changed.items():
 		print("Property %s changed:  %s" % (name, str(value)))
 
 if __name__ == "__main__":

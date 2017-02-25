@@ -1,6 +1,4 @@
-#!/usr/bin/python
-
-from __future__ import absolute_import, print_function, unicode_literals
+#!/usr/bin/python3
 
 '''
 Proximity Monitor test script
@@ -23,7 +21,7 @@ def properties_changed(interface, changed, invalidated):
 	if interface != PROXIMITY_MONITOR_INTERFACE:
 		return
 
-	for name, value in changed.iteritems():
+	for name, value in changed.items():
 		print("Property %s changed:  %s" % (name, str(value)))
 
 if __name__ == "__main__":
