@@ -156,6 +156,7 @@ endif
 if TOOLS
 bin_PROGRAMS += tools/rctest tools/l2test tools/l2ping tools/bccmd \
 			tools/bluemoon tools/hex2hcd tools/mpris-proxy \
+			tools/bluetooth_6lowpand \
 			tools/btattach
 
 noinst_PROGRAMS += tools/bdaddr tools/avinfo tools/avtest \
@@ -256,6 +257,9 @@ tools_bccmd_LDADD = lib/libbluetooth-internal.la
 
 tools_bluemoon_SOURCES = tools/bluemoon.c monitor/bt.h
 tools_bluemoon_LDADD = src/libshared-mainloop.la
+
+tools_bluetooth_6lowpand_SOURCES = tools/bluetooth_6lowpand.c
+tools_bluetooth_6lowpand_LDADD = lib/libbluetooth-internal.la src/libshared-mainloop.la
 
 tools_hex2hcd_SOURCES = tools/hex2hcd.c
 
