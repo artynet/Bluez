@@ -1,6 +1,4 @@
-#!/usr/bin/python
-
-from __future__ import absolute_import, print_function, unicode_literals
+#!/usr/bin/python3
 
 from optparse import OptionParser
 import os
@@ -32,7 +30,7 @@ def unwrap(x):
         return tuple(map(unwrap, x))
 
     if isinstance(x, dict):
-        return dict([(unwrap(k), unwrap(v)) for k, v in x.iteritems()])
+        return dict([(unwrap(k), unwrap(v)) for k, v in x.items()])
 
     for t in [unicode, str, long, int, float, bool]:
         if isinstance(x, t):

@@ -1,6 +1,4 @@
-#!/usr/bin/python
-
-from __future__ import absolute_import, print_function, unicode_literals
+#!/usr/bin/python3
 
 from optparse import OptionParser, make_option
 import dbus
@@ -18,9 +16,7 @@ def print_compact(address, properties):
 	name = ""
 	address = "<unknown>"
 
-	for key, value in properties.iteritems():
-		if type(value) is dbus.String:
-			value = unicode(value).encode('ascii', 'replace')
+	for key, value in properties.items():
 		if (key == "Name"):
 			name = value
 		elif (key == "Address"):
@@ -40,8 +36,6 @@ def print_normal(address, properties):
 
 	for key in properties.keys():
 		value = properties[key]
-		if type(value) is dbus.String:
-			value = unicode(value).encode('ascii', 'replace')
 		if (key == "Class"):
 			print("    %s = 0x%06x" % (key, value))
 		else:
@@ -70,7 +64,7 @@ def interfaces_added(path, interfaces):
 
 		if compact and skip_dev(dev, properties):
 			return
-		devices[path] = dict(devices[path].items() + properties.items())
+		devices[path] = dict(list(devices[path].items()) + list(properties.items()))
 	else:
 		devices[path] = properties
 
@@ -93,7 +87,7 @@ def properties_changed(interface, changed, invalidated, path):
 
 		if compact and skip_dev(dev, changed):
 			return
-		devices[path] = dict(devices[path].items() + changed.items())
+		devices[path] = dict(list(devices[path].items()) + list(changed.items()))
 	else:
 		devices[path] = changed
 
@@ -152,7 +146,7 @@ if __name__ == '__main__':
 	om = dbus.Interface(bus.get_object("org.bluez", "/"),
 				"org.freedesktop.DBus.ObjectManager")
 	objects = om.GetManagedObjects()
-	for path, interfaces in objects.iteritems():
+	for path, interfaces in objects.items():
 		if "org.bluez.Device1" in interfaces:
 			devices[path] = interfaces["org.bluez.Device1"]
 
