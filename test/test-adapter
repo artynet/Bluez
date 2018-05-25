@@ -1,6 +1,4 @@
-#!/usr/bin/python
-
-from __future__ import absolute_import, print_function, unicode_literals
+#!/usr/bin/python3
 
 from optparse import OptionParser, make_option
 import sys
@@ -60,7 +58,7 @@ if (args[0] == "list"):
 		om = dbus.Interface(bus.get_object("org.bluez", "/"),
 					"org.freedesktop.DBus.ObjectManager")
 		objects = om.GetManagedObjects()
-		for path, interfaces in objects.iteritems():
+		for path, interfaces in objects.items():
 			if "org.bluez.Adapter1" not in interfaces:
 				continue
 
