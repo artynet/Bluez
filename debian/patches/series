@@ -1,0 +1,20 @@
+0001-work-around-Logitech-diNovo-Edge-keyboard-firmware-i.patch
+bluetooth.conf.patch
+0001-Allow-using-obexd-without-systemd-in-the-user-sessio.patch
+0001-obex-Use-GLib-helper-function-to-manipulate-paths.patch
+change_path_of_hogsuspend.patch
+migrate_scripts_python3.patch
+tools-Fix-build-after-y2038-changes-in-glibc.patch
+lp1759836.patch
+lp1845046-policy-Add-logic-to-connect-a-Sink.patch
+
+# This currently stays specific for Ubuntu
+0001-obexd-plugins-import-PBAP-ebook-support-from-upstrea.patch
+0001-obexd-plugins-port-ebook-support-to-the-latest-EDS.patch
+0002-hostname-handle-chassis-type-handset.patch
+CVE-2020-0556-1.patch
+CVE-2020-0556-2.patch
+CVE-2020-0556-3.patch
+CVE-2020-0556-4.patch
+
+bluetooth_6lowpand-5.50-autoreconf.patch
