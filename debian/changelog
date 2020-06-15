@@ -1,4 +1,4 @@
-bluez (5.50-1.2~deb10u1) buster-security; urgency=high
+bluez (5.50-1.2~deb10u2) buster-security; urgency=high
 
   * Non-maintainer upload by the Security Team.
   * Rebuild for buster-security.
